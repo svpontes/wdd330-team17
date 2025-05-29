@@ -257,6 +257,50 @@ button {
   }
 }
 
+/*css styles for form*/
+.checkout-form {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-form label {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.checkout-form input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.checkout-form button {
+  margin-top: 2rem;
+  padding: 1rem;
+  font-size: 1.2rem;
+  background: #2e86de;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.checkout-form button:hover {
+  background: #216ab6;
+}
+
+.order-summary {
+  flex: 1;
+  padding: 1rem;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+/**/
+
 footer {
   font-size: var(--small-font);
   padding: 1em;
