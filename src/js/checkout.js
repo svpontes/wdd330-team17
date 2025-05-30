@@ -1,5 +1,5 @@
 import { loadHeaderFooter } from "./utils.mjs";
-import { CheckoutProcess } from "srcjsCheckoutProcess.mjs"; //relative path
+import { CheckoutProcess } from ".CheckoutProcess.mjs";
 
 loadHeaderFooter();
 
