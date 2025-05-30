@@ -7,15 +7,7 @@ export function qs(selector, parent = document) {
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
-
-  const data = localStorage.getItem(key);
-  try {
-    return data ? JSON.parse(data) : null;
-  } catch (e) {
-    console.error("Erro ao fazer parse do localStorage:", e);
-    return null;
-  }
-  
+  return JSON.parse(localStorage.getItem(key));
 }
 // save data to local storage
 export function setLocalStorage(key, data) {
@@ -30,39 +22,43 @@ export function setClick(selector, callback) {
   qs(selector).addEventListener("click", callback);
 }
 
-// This function inserts a template string into a parent HTML element
-// and optionally executes a callback with provided data
+// get the product id from the query string
+export function getParam(param) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const product = urlParams.get(param);
+  return product
+}
+
+export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
+  const htmlStrings = list.map(template);
+  // if clear is true we need to clear out the contents of the parent.
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
+
 export function renderWithTemplate(template, parentElement, data, callback) {
-  parentElement.innerHTML = template; // Set the inner HTML of the parent element to the template
+  parentElement.innerHTML = template;
   if (callback) {
-    callback(data); // If a callback function is provided, call it with the data
+    callback(data);
   }
 }
 
-// This asynchronous function loads an HTML template from a given file path
-//Added error handling for safer execution
 async function loadTemplate(path) {
-  try {
-    const res = await fetch(path); // Fetch the file from the specified path
-    if (!res.ok) {
-      throw new Error(`Failed to load template: ${res.status} ${res.statusText}`);
-    }
-    const template = await res.text(); // convert the response to text html
-    return template; //return the Html template as a string
-  } catch (error) {
-    console.error("Error loading template:", error);
-    return ""; //return an empty astring if there is an error
-  } 
+  const res = await fetch(path);
+  const template = await res.text();
+  return template;
 }
 
-// This function loads and renders the header and footer templates into the page
 export async function loadHeaderFooter() {
-  const headerTemplate = await loadTemplate("../partials/header.html"); // Load the header template
-  const footerTemplate = await loadTemplate("../partials/footer.html"); // Load the footer template
+  const headerTemplate = await loadTemplate("../partials/header.html");
+  const footerTemplate = await loadTemplate("../partials/footer.html");
 
-  const headerElement = document.querySelector("#main-header"); // Select the HTML element for the header
-  const footerElement = document.querySelector("#main-footer"); // Select the HTML element for the footer
+  const headerElement = document.querySelector("#main-header");
+  const footerElement = document.querySelector("#main-footer");
 
-  renderWithTemplate(headerTemplate, headerElement); // Render the header template into the header element
-  renderWithTemplate(footerTemplate, footerElement); // Render the footer template into the footer element
+  renderWithTemplate(headerTemplate, headerElement);
+  renderWithTemplate(footerTemplate, footerElement);
 }
