@@ -3,4 +3,5 @@ Valdemar
 Link to trello
 https://trello.com/b/UQfNK1rZ/wdd330-team17
 link to netlify
-https://wdd330-team17.netlify.app/
+hilarious-pasca-e12895 //name first deploy
+https://hilarious-pasca-e12895.netlify.app/
